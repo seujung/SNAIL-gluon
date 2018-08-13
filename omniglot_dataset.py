@@ -32,7 +32,7 @@ class OmniglotDataset(data.Dataset):
     raw_folder = 'raw'
     processed_folder = 'data'
 
-    def __init__(self, mode='train', root='/home/skinet/work/datasets/omniglot', transform=None, target_transform=None, download=False):
+    def __init__(self, mode='train', root='../dataset/omniglot', transform=None, target_transform=None, download=False):
         '''
         The items are (filename,category). The index of all the categories can be found in self.idx_classes
         Args:
