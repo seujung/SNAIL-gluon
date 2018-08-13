@@ -1,16 +1,25 @@
-# relational network with Gluon
+# SNAIL with Gluon
 
 ---
 
-Gluon inplementation of [A simple neural module for relational reasoning](https://arxiv.org/abs/1706.01427)
+Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](hhttps://openreview.net/pdf?id=B1DmUzWAW)
 
-![net_structure](assets/network_structure.png)
+##### network structore
+![net_structure](assets/net_structure.png)
+
+##### building block structure
+![block_structure](assets/blocks.png)
 
 ## Requirements
 - Python 3.6.1
-- Mxnet(1.2)
+- Mxnet 1.2.0
+- pytorch 0.4.0 (only use data loading)
 - tqdm
-- opencv-python
+
+## Application
+-  Omniglot
+
+- Mini-Imagenet : working
 
 
 ## Usage
@@ -21,10 +30,6 @@ Gluon inplementation of [A simple neural module for relational reasoning](https:
   - GPU_COUNT : Use GPU count (default=2)
   - show_status : show loss and accuracy for each epoch (default=True)
 
-###### data generation
-```
-python sort-of-clevr.py
-``` 
 
 ###### default setting
 ```
@@ -34,13 +39,14 @@ or
 
 ###### manual setting
 ```
-python main.py --batch_size=32 --epoches=100
+python main.py --batch_size=24 --epoches=200 ..
 ```
 
 ## Results
-![perf_acc](assets/perf_result_acc.png)
+![perf_acc](assets/perf_acc.png)
 
-![perf_loss](assets/perf_result_l.png)
 
 ## Reference
-- https://github.com/kimhc6028/relational-networks
+- https://github.com/sagelywizard/snail
+- https://github.com/eambutu/snail-pytorch
+
