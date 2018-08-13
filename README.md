@@ -47,7 +47,7 @@ python main.py --batch_size=24 --epoches=200 ..
 ```
 
 ## Results
-##### 10-way 5shot case
+##### 10-way 5-shot case
 ![perf_acc](assets/perf_acc.png)
 
 
