@@ -27,10 +27,10 @@ Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](hhttps://open
 - arguments
   - batch_size : Define batch size (defualt=64)
   - epoches : Define total epoches (default=50)
-  - N :  (default=10)
-  - K :  (default=5)
-  - iterations :  (default=1000)
-  - input_dims :  (default=64)
+  - N : the nunber of N-way (default=10)
+  - K : the number of K-shot (default=5)
+  - iterations : the number of data iteration (default=1000)
+  - input_dims : embedding dimension of input data (default=64)
   - download :  (default=False)
   - GPU_COUNT : use gpu count  (default=2)
 
@@ -47,6 +47,7 @@ python main.py --batch_size=24 --epoches=200 ..
 ```
 
 ## Results
+##### 10-way 5shot case
 ![perf_acc](assets/perf_acc.png)
 
 
