@@ -27,8 +27,12 @@ Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](hhttps://open
 - arguments
   - batch_size : Define batch size (defualt=64)
   - epoches : Define total epoches (default=50)
-  - GPU_COUNT : Use GPU count (default=2)
-  - show_status : show loss and accuracy for each epoch (default=True)
+  - N :  (default=10)
+  - K :  (default=5)
+  - iterations :  (default=1000)
+  - input_dims :  (default=64)
+  - download :  (default=False)
+  - GPU_COUNT : use gpu count  (default=2)
 
 
 ###### default setting
