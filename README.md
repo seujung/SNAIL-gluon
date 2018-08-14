@@ -2,7 +2,7 @@
 
 ---
 
-Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](hhttps://openreview.net/pdf?id=B1DmUzWAW)
+Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](https://openreview.net/pdf?id=B1DmUzWAW)
 
 ##### network structore
 ![net_structure](assets/net_structure.png)
