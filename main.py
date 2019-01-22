@@ -17,6 +17,7 @@ Description : main module to run code
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License
+import os
 import argparse
 from trainer import Train
 # pylint: disable=no-member
@@ -34,7 +35,15 @@ def main():
     parser.add_argument('--download', type=bool, default=False)
     parser.add_argument('--GPU_COUNT', type=int, default=1)
     parser.add_argument('--logdir', type=str, default='./log')
+    parser.add_argument('--modeldir', type=str, default='./models')
     config = parser.parse_args()
+    
+    # create output dir
+    try:
+        os.makedirs(config.logdir)
+        os.makedirs(config.modeldir)
+    except OSError:
+        pass
 
     trainer = Train(config)
 
