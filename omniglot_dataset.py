@@ -1,21 +1,39 @@
-# coding=utf-8
-from __future__ import print_function
-import torch.utils.data as data
-import numpy as np
-import errno
-import os
-from PIL import Image
-import torch
-import shutil
-
-'''
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+"""
+Description:
 Inspired by https://github.com/pytorch/vision/pull/46
-'''
+"""
+from __future__ import print_function
+import os
+import shutil
+import errno
+import numpy as np
+from mxnet import nd
+import mxnet.gluon.data as data
+from PIL import Image
+# pylint: disable=invalid-name, too-many-instance-attributes, redefined-outer-name, line-too-long, too-many-arguments, unused-argument
+
 
 IMG_CACHE = {}
-
-
 class OmniglotDataset(data.Dataset):
+    """
+    Description : set the omniglot dataset
+    """
     vinalys_baseurl = 'https://raw.githubusercontent.com/jakesnell/prototypical-networks/master/data/omniglot/splits/vinyals/'
     vinyals_split_sizes = {
         'test': vinalys_baseurl + 'test.txt',
@@ -32,9 +50,12 @@ class OmniglotDataset(data.Dataset):
     raw_folder = 'raw'
     processed_folder = 'data'
 
-    def __init__(self, mode='train', root='../dataset/omniglot', transform=None, target_transform=None, download=False):
+    def __init__(self, mode='train', root='../dataset/omniglot',\
+                 transform=None, target_transform=None,\
+                 download=False):
         '''
-        The items are (filename,category). The index of all the categories can be found in self.idx_classes
+        The items are (filename,category).
+        The index of all the categories can be found in self.idx_classes
         Args:
         - root: the directory where the dataset will be stored
         - transform: how to transform the input
@@ -76,6 +97,9 @@ class OmniglotDataset(data.Dataset):
         return len(self.all_items)
 
     def get_path_label(self, index):
+        """
+        Description : get path for label
+        """
         filename = self.all_items[index][0]
         rot = self.all_items[index][-1]
         img = str.join('/', [self.all_items[index][2], filename]) + rot
@@ -91,6 +115,9 @@ class OmniglotDataset(data.Dataset):
         return os.path.exists(os.path.join(self.root, self.processed_folder))
 
     def download(self):
+        """
+        Description : download omniglot dataset
+        """
         from six.moves import urllib
         import zipfile
 
@@ -107,7 +134,7 @@ class OmniglotDataset(data.Dataset):
             else:
                 raise
 
-        for k, url in self.vinyals_split_sizes.items():
+        for _, url in self.vinyals_split_sizes.items():
             print('== Downloading ' + url)
             data = urllib.request.urlopen(url)
             filename = url.rpartition('/')[-1]
@@ -136,9 +163,12 @@ class OmniglotDataset(data.Dataset):
 
 
 def find_items(root_dir, classes):
+    """
+    Description : Find items
+    """
     retour = []
     rots = ['/rot000', '/rot090', '/rot180', '/rot270']
-    for (root, dirs, files) in os.walk(root_dir):
+    for (root, _, files) in os.walk(root_dir):
         for f in files:
             r = root.split('/')
             lr = len(r)
@@ -151,21 +181,30 @@ def find_items(root_dir, classes):
 
 
 def index_classes(items):
+    """
+    Description : check number of classes
+    """
     idx = {}
     for i in items:
-        if (not i[1] + i[-1] in idx):
+        if not i[1] + i[-1] in idx:
             idx[i[1] + i[-1]] = len(idx)
     print("== Dataset: Found %d classes" % len(idx))
     return idx
 
 
 def get_current_classes(fname):
+    """
+    Description : get the current classes
+    """
     with open(fname) as f:
         classes = f.read().splitlines()
     return classes
 
 
 def load_img(path, idx):
+    """
+    Description : load image files
+    """
     path, rot = path.split('/rot')
     if path in IMG_CACHE:
         x = IMG_CACHE[path]
@@ -174,10 +213,8 @@ def load_img(path, idx):
         IMG_CACHE[path] = x
     x = x.rotate(float(rot))
     x = x.resize((28, 28))
-
-    shape = 1, x.size[0], x.size[1]
     x = np.array(x, np.float32, copy=False)
-    x = 1.0 - torch.from_numpy(x)
-    x = x.transpose(0, 1).contiguous().view(shape)
-
+    x = 1.0 - nd.array(x)
+    x = x.transpose(axes=(0, 1))
+    x = nd.expand_dims(x, 0)
     return x

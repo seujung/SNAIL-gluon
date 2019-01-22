@@ -1,10 +1,27 @@
-# coding=utf-8
+"""
+Description : Generate batch sample data for omniglot
+"""
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License
 import random
 import numpy as np
-import torch
 
-
-class BatchSampler(object):
+# pylint: disable=invalid-name, too-many-instance-attributes, too-many-arguments, too-many-locals
+class BatchSampler():
     '''
     BatchSampler: yield a batch of indexes at each iteration.
 
@@ -47,7 +64,7 @@ class BatchSampler(object):
         num_samples = spc * cpi
         true_num_samples = (spc - 1) * cpi + 1
 
-        for it in range(self.iterations):
+        for _ in range(self.iterations):
             total_batch = np.array([])
             for _ in range(self.batch_size):
                 batch = np.empty(num_samples)
@@ -61,7 +78,8 @@ class BatchSampler(object):
                     batch[s] = self.label_tens[label_idx][sample_idxs]
                 offset = random.randint(0, 4)
                 batch = batch[offset:offset + true_num_samples]
-                batch[:true_num_samples - 1] = batch[:true_num_samples - 1][np.random.permutation(true_num_samples - 1)]
+                batch[:true_num_samples - 1] = \
+                batch[:true_num_samples - 1][np.random.permutation(true_num_samples - 1)]
                 total_batch = np.append(total_batch, batch)
             yield total_batch.astype(int)
 
