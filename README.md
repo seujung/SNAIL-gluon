@@ -19,20 +19,19 @@ Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](https://openr
 ## Application
 -  Omniglot
 
-- Mini-Imagenet : working
-
-
 ## Usage
 
 - arguments
   - batch_size : Define batch size (defualt=64)
-  - epoches : Define total epoches (default=50)
+  - epochs : Define total epoches (default=50)
   - N : the nunber of N-way (default=10)
   - K : the number of K-shot (default=5)
   - iterations : the number of data iteration (default=1000)
   - input_dims : embedding dimension of input data (default=64)
-  - download :  (default=False)
-  - GPU_COUNT : use gpu count  (default=2)
+  - download :  download omniglot dataset (default=False)
+  - GPU_COUNT : use gpu count  (default=1)
+  - logdir : location of mxboard log file
+  - modeldir : location of model parameter file
 
 
 ###### default setting
@@ -43,7 +42,7 @@ or
 
 ###### manual setting
 ```
-python main.py --batch_size=24 --epoches=200 ..
+python main.py --batch_size=24 --epochs=200 ..
 ```
 
 ## Results
