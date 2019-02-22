@@ -37,7 +37,7 @@ def main():
     parser.add_argument('--logdir', type=str, default='./log')
     parser.add_argument('--modeldir', type=str, default='./models')
     config = parser.parse_args()
-    
+
     # create output dir
     try:
         os.makedirs(config.logdir)

@@ -12,9 +12,10 @@ Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](https://openr
 
 ## Requirements
 - Python 3.6.1
-- MXNet 1.2.0
-- pytorch 0.4.0 (only use data loading)
-- tqdm
+- mxnet 1.3.1
+- mxboard 0.1.0
+- tqdm 4.29.0
+
 
 ## Application
 -  Omniglot
@@ -28,10 +29,10 @@ Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](https://openr
   - K : the number of K-shot (default=5)
   - iterations : the number of data iteration (default=1000)
   - input_dims : embedding dimension of input data (default=64)
-  - download :  download omniglot dataset (default=False)
+  - download : download omniglot dataset (default=False)
   - GPU_COUNT : use gpu count  (default=1)
-  - logdir : location of mxboard log file
-  - modeldir : location of model parameter file
+  - logdir : location of mxboard log file (default=./log)
+  - modeldir : location of model parameter file (default=./models)
 
 
 ###### default setting
