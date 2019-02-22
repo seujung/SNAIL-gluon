@@ -12,7 +12,7 @@ Gluon inplementation of [A Simple Neural Attentive Meta-Learniner](https://openr
 
 ## Requirements
 - Python 3.6.1
-- Mxnet 1.2.0
+- MXNet 1.2.0
 - pytorch 0.4.0 (only use data loading)
 - tqdm
 
